@@ -6,4 +6,4 @@
 2. Install the following packages:
         matplotlib
         numpy
-3. Download the latest verison from the releases, the run 'liner-graph-calculator.py' on your system
+3. Download the latest verison from the repository, the run 'liner-graph-calculator.py' on your system
