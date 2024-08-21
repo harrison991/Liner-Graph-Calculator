@@ -6,30 +6,36 @@ import numpy as np
 
 def calculate_and_plot():
     try:
-        m = int(entry_m.get())
-        x_start = int(entry_x.get())
-        c = int(entry_c.get())
+        m = float(entry_m.get())
+        x_start = float(entry_x.get())
+        c = float(entry_c.get())
         
-        if x_start != -2:
-            messagebox.showerror("Input Error", "The x coordinate must be -2.")
+        if not (-2 <= x_start <= 2):
+            messagebox.showerror("Input Error", "X coordinate must be between -2 and 2.")
             return
         
         x_values = np.arange(-2, 3)  # x values from -2 to 2
         y_values = m * x_values + c  # Calculate corresponding y values
+
+        # Clear the table
+        for row in table.get_children():
+            table.delete(row)
         
         # Display the table
-        for i, (x_val, y_val) in enumerate(zip(x_values, y_values)):
+        for x_val, y_val in zip(x_values, y_values):
             table.insert("", "end", values=(x_val, y_val))
         
         # Plot the graph
         plt.figure(figsize=(6, 6))
-        plt.plot(x_values, y_values, marker='o')
-        plt.xlim(-10, 10)
-        plt.ylim(-10, 10)
+        plt.plot(x_values, y_values, marker='o', linestyle='-', color='b')
+        plt.xlim(min(x_values)-1, max(y_values)+1)
+        plt.ylim(min(y_values)-1, max(x_values)+1)
         plt.grid(True)
         plt.axhline(0, color='black',linewidth=0.5)
         plt.axvline(0, color='black',linewidth=0.5)
         plt.title(f"Graph of y = {m}x + {c}")
+        plt.xlabel("x")
+        plt.ylabel("y")
         plt.show()
 
     except ValueError:
@@ -40,21 +46,21 @@ root = tk.Tk()
 root.title("Linear Graph Calculator")
 
 # Create and place the input fields
-tk.Label(root, text="Gradient (m):").grid(row=0, column=0)
+tk.Label(root, text="Gradient (m):").grid(row=0, column=0, padx='5', pady='5')
 entry_m = tk.Entry(root)
-entry_m.grid(row=0, column=1)
+entry_m.grid(row=0, column=1, padx='5', pady='5')
 
-tk.Label(root, text="X coordinate (start at -2):").grid(row=1, column=0)
+tk.Label(root, text="X coordinate (start at -2):").grid(row=1, column=0, padx='5', pady='5')
 entry_x = tk.Entry(root)
-entry_x.grid(row=1, column=1)
+entry_x.grid(row=1, column=1, padx='5', pady='5')
 
-tk.Label(root, text="Y intercept (c):").grid(row=2, column=0)
+tk.Label(root, text="Y intercept (c):").grid(row=2, column=0, padx='5', pady='5')
 entry_c = tk.Entry(root)
-entry_c.grid(row=2, column=1)
+entry_c.grid(row=2, column=1, padx='5', pady='5')
 
 # Create a button to calculate and plot
 calculate_button = tk.Button(root, text="Calculate and Plot", command=calculate_and_plot)
-calculate_button.grid(row=3, columnspan=2)
+calculate_button.grid(row=3, columnspan=2, pady='10')
 
 # Create a table to display x and y values
 table = ttk.Treeview(root, columns=("x", "y"), show="headings", height=5)
