@@ -3,7 +3,6 @@
 
 # How to run
 1. INSTALL PYTHON
-2. Install the following packages:
-        matplotlib
-        numpy
-3. Download the latest verison from the repository, the run 'liner-graph-calculator.py' on your system
+2. Download the latest verison from the repository
+3. Run "pip install -r requriements.txt"
+4. Run "liner-graph-calculator.py"
